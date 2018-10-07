@@ -1,0 +1,52 @@
+<%= form_with(model: event, local: true) do |form| %>
+  <% if event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+      <ul>
+      <% event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :start_datetime %>
+    <%= form.text_field :start_datetime, value: event.start_datetime || Date.today.strftime("%d/%m/%Y"), class: 'datepicker' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_datetime %>
+    <%= form.text_field :end_datetime, value: event.end_datetime || Date.today.strftime("%d/%m/%Y"), class: 'datepicker' %>
+  </div>
+
+  <div class="field">
+    <label>Select Users</label>
+    <% User.all.each do |u| %>
+      <%= form.check_box(:user_ids, { :multiple => true }, u.id, nil) %> <%= "#{u.name} - #{u.email} - #{u.phone}" %> <br>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $('.datepicker').datepicker({
+    dateFormat: 'dd/mm/yy',
+    changeMonth: true,
+    changeYear: true
+  });
+</script>
