@@ -34,7 +34,7 @@
   <div class="field">
     <label>Select Users</label>
     <% User.all.each do |u| %>
-      <%= form.check_box(:user_ids, { :multiple => true }, u.id, nil) %> <%= "#{u.name} - #{u.email} - #{u.phone}" %> <br>
+      <%= form.check_box(:user_ids, { multiple: true, include_hidden: false }, u.id) %> <%= u.info %> <br>
     <% end %>
   </div>
 

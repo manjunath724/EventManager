@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hello <%= @user.name %></h1>
+    <p>
+      Event has been created:
+
+      <li>Title: <%= @event.title %></li>
+      <li>Description: <%= @event.description %></li>
+      <li>Start DateTime: <%= @event.start_datetime %></li>
+      <li>End DateTime: <%= @event.end_datetime %></li>
+
+      <ul>
+        Participants:
+        <% @event.users.each do |u| %>
+          <li><%= u.info %></li>
+        <% end %>
+      </ul>
+    </p>
+
+    <%= link_to accept_event_url(@event, user_id: @user.id), method: :post, style: "outline: 0; text-decoration: none" do %>
+      <div style="background: #43BDA3; color: #fff; font-size: 16px; padding: 15px; margin: 10px; border-outline: 0; font-weight: 800; letter-spacing: 1px">
+        Accept Event
+      </div>
+    <% end %>
+  </body>
+</html>
